@@ -5,7 +5,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 import com.example.togowos.databinding.ActivityMainBinding;
-import com.example.togowos.Api.*
+import com.example.togowos.Api.ArrivalBoardApi;
+import com.example.togowos.model.ArrivalBoard;
+
+import org.threeten.bp.LocalDate;
+
 
 public class MainActivity extends Activity {
 
@@ -20,5 +24,7 @@ public class MainActivity extends Activity {
         setContentView(binding.getRoot());
 
         mTextView = binding.text;
+
+
     }
 }
