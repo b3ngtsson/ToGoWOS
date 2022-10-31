@@ -16,15 +16,9 @@ package io.swagger.client.api;
 import com.example.togowos.Api.TripApi;
 import com.example.togowos.model.TripList;
 
-import org.threeten.bp.LocalDate;
-import org.junit.Test;
 import org.junit.Ignore;
-
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.Test;
+import org.threeten.bp.LocalDate;
 
 /**
  * API tests for TripApi

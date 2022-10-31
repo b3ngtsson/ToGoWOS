@@ -21,14 +21,10 @@ import com.example.togowos.Configuration;
 import com.example.togowos.Pair;
 import com.example.togowos.ProgressRequestBody;
 import com.example.togowos.ProgressResponseBody;
-
+import com.example.togowos.model.SystemInfo;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-
-
-import com.example.togowos.model.SystemInfo;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -16,15 +16,8 @@ package io.swagger.client.api;
 import com.example.togowos.Api.SysteminfoApi;
 import com.example.togowos.model.SystemInfo;
 
-
-import org.junit.Test;
 import org.junit.Ignore;
-
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.Test;
 
 /**
  * API tests for SysteminfoApi

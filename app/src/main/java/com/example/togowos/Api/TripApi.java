@@ -21,15 +21,12 @@ import com.example.togowos.Configuration;
 import com.example.togowos.Pair;
 import com.example.togowos.ProgressRequestBody;
 import com.example.togowos.ProgressResponseBody;
-
+import com.example.togowos.model.TripList;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
-
-
 import org.threeten.bp.LocalDate;
-import com.example.togowos.model.TripList;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;

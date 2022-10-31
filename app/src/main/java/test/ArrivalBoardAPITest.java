@@ -1,20 +1,24 @@
 package test;
 
-import com.example.togowos.*;
-import com.example.togowos.model.*;
 import com.example.togowos.Api.ArrivalBoardApi;
+import com.example.togowos.ApiException;
+import com.example.togowos.model.ArrivalBoard;
 
 import org.junit.Test;
 import org.threeten.bp.LocalDate;
+
+import java.text.SimpleDateFormat;
 
 public class ArrivalBoardAPITest {
 
     @Test
     public void useAppContext(){
+        String timeGen = new SimpleDateFormat("HH:MM:").toString();
+
         ArrivalBoardApi apiInstance = new ArrivalBoardApi();
         Long id = 789L; // Long | stop id
         LocalDate date = LocalDate.now(); // LocalDate | the date
-        String time = "time_example"; // String | the time in format HH:MM
+        String time = timeGen; // String | the time in format HH:MM
         Long direction = 789L; // Long | stop id in order to get only departures of vehicles with a specified direction
         String useVas = "useVas_example"; // String | to exclude trips with Västtågen, set this parameter to 0.
         String useLDTrain = "useLDTrain_example"; // String | to exclude trips with long distance trains, set this parameter to 0.
