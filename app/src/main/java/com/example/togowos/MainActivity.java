@@ -11,19 +11,29 @@ import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
 
-import com.example.togowos.Api.LocationApi;
+import com.example.togowos.auth.HttpBasicAuth;
+import com.example.togowos.auth.OAuth;
 import com.example.togowos.databinding.ActivityMainBinding;
+import com.example.togowos.model.Departure;
 import com.example.togowos.model.LocationList;
 
+import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import testSelfApi.DepartueBoardsThread;
+import testSelfApi.MyDepartueBoardsThread;
+import testSelfApi.MyNearestStopIdThread;
+import testSelfApi.NearestStopIDThread;
 
 public class MainActivity extends Activity {
 
     private TextView mTextView;
     private ActivityMainBinding binding;
-    private final LocationApi api = new LocationApi();
+    public static HttpBasicAuth httpBasicAuth = new HttpBasicAuth();
+    public static OAuth token = new OAuth();
+    public static ApiClient apiclient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +45,15 @@ public class MainActivity extends Activity {
 
         mTextView = binding.text;
 
-        String token = "";
-
-
+        // set ApiClient with authorization we can use for every type of API.
+        apiclient = new ApiClient("oAuth", token);
+        Configuration.setDefaultApiClient(apiclient);
 
         try {
-            token = getToken();
+            getToken();
         }
         catch (Exception e){
             //log it out  bro
-
         }
 
         // get data such as lat long
@@ -53,23 +62,57 @@ public class MainActivity extends Activity {
         // 2nd call API with closest stations
         // have to create another Thread
         try{
-            LocationList stops = getNearestStops(coordinates.get("lat"), coordinates.get("long"));
+            LocationList  stops = getNearbyStopID(coordinates.get("lat"), coordinates.get("long"));
+            try{
+                ArrayList<ArrayList<Departure>> departureboards = getDepartureBoards(stops);
+                System.out.print("lets - go");
+
+            }
+            catch(Exception e){
+                System.out.print("Failed to get departureboard");
+
+            }
         }catch (Exception e){
-            //
+            System.out.print("Failed to find nearbyStop");
         }
 
-
+        // Find the departures from the nearest stops
 
     }
 
+    public ArrayList<ArrayList<Departure>> getDepartureBoards(LocationList stops) throws InterruptedException, MalformedURLException{
+        DepartueBoardsThread departueBoardsThread = new DepartueBoardsThread(stops);
+        Thread t = new Thread(departueBoardsThread);
+        t.start();
+        t.join();
 
-    public LocationList getNearestStops(Double lat, Double lon){
+        MyDepartueBoardsThread mytask = new MyDepartueBoardsThread(departueBoardsThread);
+
+        return mytask.getThisListOfDepartureBoards();
+    }
+
+
+    public LocationList getNearestStops(Double lat, Double lon) throws InterruptedException, MalformedURLException {
 
         NearestStopThread nearestStopThread = new NearestStopThread(lat, lon);
         Thread t = new Thread(nearestStopThread);
         t.start();
+        t.join();
+
 
         MyNearestStopThread mytask = new MyNearestStopThread(nearestStopThread);
+
+        return mytask.getThisListOfStops();
+    }
+
+    public LocationList getNearbyStopID(Double lat, Double lon) throws InterruptedException, MalformedURLException {
+        NearestStopIDThread nearestStopIDThread = new NearestStopIDThread(lat, lon);
+        Thread t = new Thread(nearestStopIDThread);
+        t.start();
+        t.join();
+
+
+        MyNearestStopIdThread mytask = new MyNearestStopIdThread(nearestStopIDThread);
 
         return mytask.getThisListOfStops();
     }
@@ -89,23 +132,28 @@ public class MainActivity extends Activity {
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
-        coordinates.put("long", longitude);
         coordinates.put("lat", latitude);
+        coordinates.put("long", longitude);
+
         return coordinates;
     }
 
-    public String getToken() {
+    public void getToken() throws InterruptedException {
         //CompletableFuture<String> completableFuture = new CompletableFuture<>();
+
+        httpBasicAuth.setUsername("JvCUv2Q8QTu8SzpKlNR6tGF_AdMa");
+        httpBasicAuth.setPassword("sZWu5IIbvxtU7lkc0XX25khsHyoa");
+
 
         TokenThread tokenThread = new TokenThread();
         Thread t = new Thread(tokenThread);
         t.start();
+        t.join();
 
         MyTokenThread mytask = new MyTokenThread(tokenThread);
+        token.setAccessToken(mytask.getthistoken());
         // completableFuture.complete(mytask.getthistoken());
         //String result = completableFuture.get();
-
-        return mytask.getthistoken();
 
     }
 }

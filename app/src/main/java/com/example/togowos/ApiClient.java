@@ -110,10 +110,27 @@ public class ApiClient {
         json = new JSON();
 
         // Set default User-Agent.
-        setUserAgent("Swagger-Codegen/1.0.0/java");
+        setUserAgent("PostmanRuntime/7.26.8");
 
         // Setup authentications (key: authentication name, value: authentication).
         authentications = new HashMap<String, Authentication>();
+        // Prevent the authentications from being modified.
+        authentications = Collections.unmodifiableMap(authentications);
+    }
+    public ApiClient(String name, OAuth auth){
+        httpClient = new OkHttpClient();
+
+
+        verifyingSsl = true;
+
+        json = new JSON();
+
+        // Set default User-Agent.
+        setUserAgent("PostmanRuntime/7.26.8");
+
+        // Setup authentications (key: authentication name, value: authentication).
+        authentications = new HashMap<String, Authentication>();
+        authentications.put(name, auth);
         // Prevent the authentications from being modified.
         authentications = Collections.unmodifiableMap(authentications);
     }
@@ -713,10 +730,14 @@ public class ApiClient {
             return (T) downloadFileFromResponse(response);
         }
 
-        String respBody;
+        String respBody= "";
         try {
             if (response.body() != null)
-                respBody = response.body().string();
+                try{
+                    respBody = response.body().string();
+                }catch (NullPointerException c){
+                    String e = "e";
+                }
             else
                 respBody = null;
         } catch (IOException e) {
@@ -863,6 +884,9 @@ public class ApiClient {
     public <T> ApiResponse<T> execute(Call call, Type returnType) throws ApiException {
         try {
             Response response = call.execute();
+
+            InputStream is = response.body().byteStream();
+
             T data = handleResponse(response, returnType);
             return new ApiResponse<T>(response.code(), response.headers().toMultimap(), data);
         } catch (IOException e) {
@@ -988,8 +1012,8 @@ public class ApiClient {
      * @throws ApiException If fail to serialize the request body object
      */
     public Request buildRequest(String path, String method, List<Pair> queryParams, List<Pair> collectionQueryParams, Object body, Map<String, String> headerParams, Map<String, Object> formParams, String[] authNames, ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        updateParamsForAuth(authNames, queryParams, headerParams);
-
+         updateParamsForAuth(authNames, queryParams, headerParams);
+        //MainActivity.token.applyToParams(queryParams, headerParams);
         final String url = buildUrl(path, queryParams, collectionQueryParams);
         final Request.Builder reqBuilder = new Request.Builder().url(url);
         processHeaderParams(headerParams, reqBuilder);
@@ -1027,7 +1051,6 @@ public class ApiClient {
         } else {
             request = reqBuilder.method(method, reqBody).build();
         }
-
         return request;
     }
 

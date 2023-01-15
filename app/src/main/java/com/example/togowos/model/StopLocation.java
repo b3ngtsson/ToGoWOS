@@ -44,6 +44,7 @@ public class StopLocation {
   @SerializedName("lat")
   private String lat = null;
 
+
   public StopLocation id(String id) {
     this.id = id;
     return this;

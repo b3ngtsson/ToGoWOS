@@ -1,5 +1,6 @@
 package com.example.togowos.auth;
 
+import com.example.togowos.MainActivity;
 import com.example.togowos.Utils.Utility;
 
 import org.json.JSONException;
@@ -31,8 +32,8 @@ public class TokenAPI {
         try{
             HttpURLConnection con = (HttpURLConnection) uri.openConnection();
 
-            // get auutorization:
-            String auth = vtA.getUser() + ":" + vtA.getSecret();
+            // get autorization:
+            String auth =  MainActivity.httpBasicAuth.getUsername()+ ":" +MainActivity.httpBasicAuth.getPassword() ;
             byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.UTF_8));
 
             // compose request parameters

@@ -17,11 +17,19 @@ dependencies {
     implementation 'io.gsonfire:gson-fire:1.8.0'
     implementation 'junit:junit:4.12'
     implementation 'org.riversun:java-promise:1.1.0'
+    implementation files('libs\\java-json.jar')
+
 }
 
 android {
     compileSdk 31
     buildToolsVersion "30.0.3"
+
+    configurations {
+        all {
+            exclude module: 'commons-logging'
+        }
+    }
 
 
     defaultConfig {

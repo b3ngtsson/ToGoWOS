@@ -99,8 +99,7 @@ public class LocationApi {
                 }
             });
         }
-
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] {"oAuth"};
         return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -474,18 +473,24 @@ public class LocationApi {
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        if (originCoordLat != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("originCoordLat", originCoordLat));
-        if (originCoordLong != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("originCoordLong", originCoordLong));
-        if (maxNo != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("maxNo", maxNo));
-        if (maxDist != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("maxDist", maxDist));
-        if (format != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("format", format));
-        if (jsonpCallback != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("jsonpCallback", jsonpCallback));
+        if (originCoordLat != null){
+            localVarQueryParams.addAll(apiClient.parameterToPair("originCoordLat", originCoordLat));
+        }
+        if (originCoordLong != null){
+            localVarQueryParams.addAll(apiClient.parameterToPair("originCoordLong", originCoordLong));
+        }
+        if (maxNo != null){
+            localVarQueryParams.addAll(apiClient.parameterToPair("maxNo", maxNo));
+        }
+        if (maxDist != null){
+            localVarQueryParams.addAll(apiClient.parameterToPair("maxDist", maxDist));
+        }
+        if (format != null){
+            localVarQueryParams.addAll(apiClient.parameterToPair("format", format));
+        }
+        if (jsonpCallback != null){
+            localVarQueryParams.addAll(apiClient.parameterToPair("jsonpCallback", jsonpCallback));
+        }
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
 
@@ -495,13 +500,13 @@ public class LocationApi {
             "application/xml", "application/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", "text/xml");
 
         final String[] localVarContentTypes = {
 
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
+        localVarHeaderParams.put("Content-Type", "text/xml");
 
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
@@ -515,7 +520,7 @@ public class LocationApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] {"oAuth"};
         return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -567,9 +572,10 @@ public class LocationApi {
      * @return ApiResponse&lt;LocationList&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<LocationList> getNearbyStopsWithHttpInfo(Double originCoordLat, Double originCoordLong, Integer maxNo, Integer maxDist, String format, String jsonpCallback) throws ApiException {
+    public ApiResponse<LocationList> getNearbyStopsWithHttpInfo(Double originCoordLat, Double originCoordLong, Integer maxNo, Integer maxDist, String format, String jsonpCallback ) throws ApiException {
         com.squareup.okhttp.Call call = getNearbyStopsValidateBeforeCall(originCoordLat, originCoordLong, maxNo, maxDist, format, jsonpCallback, null, null);
         Type localVarReturnType = new TypeToken<LocationList>(){}.getType();
+
         return apiClient.execute(call, localVarReturnType);
     }
 

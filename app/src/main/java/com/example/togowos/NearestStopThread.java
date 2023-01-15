@@ -17,24 +17,24 @@ public class NearestStopThread implements Runnable {
     @Override
     public void run() {
         try {
-            loadStops(lon, lat);
+            loadStops(lat, lon);
 
         } catch (Exception e) {
-            // aids
+            // ppp
         }
     }
 
     private void loadStops(Double lat, Double lon) throws ApiException {
+        //api.setApiClient(MainActivity.apiclient);
 
         LocationList response = api.getNearbyStops(
                 lat,
                 lon,
-                30,
-                15,
+                1,
+                null,
                 null,
                 null);
         locationList = response;
-
     }
 
     public LocationList getStops() {
@@ -42,3 +42,5 @@ public class NearestStopThread implements Runnable {
     }
 
 }
+
+
