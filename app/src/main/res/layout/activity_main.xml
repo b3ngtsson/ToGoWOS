@@ -9,17 +9,32 @@
         tools:deviceIds="wear"
         android:padding="@dimen/box_inset_layout_padding">
 
-    <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/inner_frame_layout_padding"
-            app:layout_boxedEdges="all">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/TitleOfStation"
+        android:text="pepe"
+        android:textAlignment="center"/>
+    <Button
+        android:id="@+id/button_send"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:text="button_send"
+        android:onClick="sendMessage"
+        tools:ignore="OnClick" />
+    <androidx.wear.widget.BoxInsetLayout
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content">
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/darker_gray"
+            tools:listitem="@layout/activity_list_view">
+        </ListView>
+    </androidx.wear.widget.BoxInsetLayout>
 
-        <TextView
-                android:id="@+id/text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hello_world"/>
-
-    </FrameLayout>
 </androidx.wear.widget.BoxInsetLayout>

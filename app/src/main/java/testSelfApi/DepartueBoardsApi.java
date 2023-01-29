@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -101,11 +102,16 @@ public class DepartueBoardsApi {
                         Departure departure = new Departure();
                         departure.fgColor(((HashMap)last).get("fgColor").toString());
                         departure.bgColor(((HashMap)last).get("bgColor").toString());
-                        departure.direction(((HashMap)last).get("direction").toString());
                         departure.name(((HashMap)last).get("name").toString());
                         departure.sname(((HashMap)last).get("sname").toString());
                         departure.time(((HashMap)last).get("time").toString());
                         departure.stop(((HashMap)last).get("stop").toString());
+                        try {
+                            departure.setTimediff(getTimeDifference(((HashMap)last).get("time").toString()));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        departure.direction(((HashMap)last).get("direction").toString().split(",")[0]);
                         alist.add(departure);
 
                     } );
@@ -122,6 +128,14 @@ public class DepartueBoardsApi {
 
         }
         return departureList;
+
+    }
+
+    public String getTimeDifference(String time) throws ParseException {
+
+
+
+        return String.valueOf("22");
 
     }
 }

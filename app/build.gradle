@@ -18,11 +18,12 @@ dependencies {
     implementation 'junit:junit:4.12'
     implementation 'org.riversun:java-promise:1.1.0'
     implementation files('libs\\java-json.jar')
+    implementation 'androidx.appcompat:appcompat:1.6.0'
 
 }
 
 android {
-    compileSdk 31
+    compileSdk 33
     buildToolsVersion "30.0.3"
 
     configurations {
@@ -35,7 +36,7 @@ android {
     defaultConfig {
         applicationId "com.example.togowos"
         minSdk 28
-        targetSdk 31
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 

@@ -87,6 +87,8 @@ public class Departure {
   @SerializedName("journeyid")
   private String journeyid = null;
 
+  private String timediff = null;
+
   /**
    * will only be set if the vehicle has wheelchair + ramp/lift or lowfloor according to realtime data
    */
@@ -178,6 +180,9 @@ public class Departure {
     return this;
   }
 
+  public String getTimediff(){return timediff;}
+
+  public void setTimediff(String timediff){this.timediff = timediff;}
    /**
    * Will be true if this journey needs to be booked
    * @return booking
